@@ -1,5 +1,7 @@
 package com.example.sarah.alkosh.Supplier;
 
+import android.widget.ImageView;
+
 /**
  * Created by sarah on 11/14/2017.
  */
@@ -41,4 +43,23 @@ public class Supplier {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+    //products declaration
+    public String title;
+    public ImageView productImage;
+    public String description;
+    public double price;
+    public boolean selected;
+
+    public Product(String title, ImageView productImage, String description,
+
+                   double price) {
+
+        this.title = title;
+
+        this.productImage = productImage;
+
+        this.description = description;
+
+        this.price = price;
 }

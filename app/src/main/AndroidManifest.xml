@@ -24,7 +24,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatAct" />
         <activity android:name=".Customer.CategoryAct" />
-        <activity android:name=".SupplierList"></activity>
+        <activity android:name=".SupplierList" />
+        <activity android:name=".ItemDetails"></activity>
     </application>
 
 </manifest>
