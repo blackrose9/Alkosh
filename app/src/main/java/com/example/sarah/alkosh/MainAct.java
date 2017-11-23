@@ -54,6 +54,17 @@ public class MainAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Starting");
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    private void onSignedInInitialize(String username){
+        mUsername = username;
+    }
+}
 
 //        Login methods here ....
 
@@ -98,114 +109,9 @@ public class MainAct extends AppCompatActivity {
 //        //}
 //        //mSectionsPagerAdapter.clear()
 //    }
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-//    }
-//
-//    private void onSignedInInitialize(String username){
-//        mUsername = username;
-//    }
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //
-//        SQLite methods here ...
-        RecyclerView waitlistRecyclerView;
-        // Set local attributes to corresponding views
-        waitlistRecyclerView = (RecyclerView) this.findViewById(R.id.all_guests_list_view);
-        mNewCustomerEditText = (EditText) this.findViewById(R.id.person_name_edit_text);
-        mModelNameEditText = (EditText) this.findViewById(R.id.model_name_edit_text);
-
-        // Set layout for the RecyclerView, because it's a list we are using the linear layout
-        waitlistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
 
 
-        // Create data.WaitlistDbHelper instance
-        DbHelper dbHelper = new DbHelper(this);
-        mDB = dbHelper.getWritableDatabase();
-        // Get all guest info from the database and save in a cursor
-        Cursor cursor = getAllCustomers();
-        // Create an adapter for that cursor to display the data
-        mAdapter = new OrderListAdapter(this, cursor);
-
-        waitlistRecyclerView.setAdapter(mAdapter);
-        // item touch helper for delete actions
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT){
-            // override on move
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target){
-                return false;
-            }
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir){
-                // ID of the item being swiped
-                long id = (long) viewHolder.itemView.getTag();
-                // remove from DB
-                removeCustomer(id);
-                // refresh list
-                mAdapter.swapCursor(getAllCustomers());
-
-
-
-
-            }
-        }).attachToRecyclerView(waitlistRecyclerView);
-
-
-    }//end of onCreate
-
-        public void gotoCustomer(View view){
-            Intent intent = new Intent(this, CustomerActivity.class);
-            startActivity(intent);
-        }
-        public void gotoSupplier(View view){
-            Intent intent = new Intent(this, SupplierActivity.class);
-            startActivity(intent);
-        }
-
-
-//    ............................................................. //
-//    SQLite DataBase and it's components  here //
-//Add to waitlist
-    public void addToOrderList(View view){
-    // if edit texts are empty, do nothing
-    if(mNewCustomerEditText.getText().length() == 0 || mModelNameEditText.getText().length() == 0){
-        return;
-    }
-
-    addNewCustomer(mNewCustomerEditText.getText().toString(), mModelNameEditText.getText().toString());
-    mAdapter.swapCursor(getAllCustomers());
-
-    mNewCustomerEditText.getText().clear();
-    mModelNameEditText.getText().clear();
-
-
-}
-    // add new customer method
-    public long addNewCustomer(String name, String model){
-        ContentValues cv = new ContentValues();
-        cv.put(MyTables.CustomerOrders.COLUMN_ORDER_DESC, name);
-        cv.put(MyTables.CustomerOrders.COLUMN_ORDER_ITEMS, model);
-        return mDB.insert(MyTables.CustomerOrders.TABLE_NAME, null, cv);
-    }
-
-    // private method that returns all customers
-    private Cursor getAllCustomers(){
-        return mDB.query(
-                MyTables.CustomerOrders.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                MyTables.CustomerOrders.COLUMN_SUPPLIER
-        );
-    }
-
-    public boolean removeCustomer(long id){
-        return mDB.delete(MyTables.CustomerOrders.TABLE_NAME,MyTables.CustomerOrders._ID + "=" +id, null) > 0;
-
-    }
-
-}
 

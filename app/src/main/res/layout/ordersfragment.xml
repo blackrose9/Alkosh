@@ -62,7 +62,7 @@
         android:layout_marginLeft="8dp" />
 
     <Button
-        android:id="@+id/ButtonRemoveFromCart"
+        android:id="@+id/orderdeleteitembtn"
         android:layout_width="141dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -76,7 +76,7 @@
         android:layout_marginLeft="16dp" />
 
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/orderbtn"
         android:layout_width="164dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"

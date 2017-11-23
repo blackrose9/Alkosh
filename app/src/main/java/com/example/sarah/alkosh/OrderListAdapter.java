@@ -2,6 +2,7 @@ package com.example.sarah.alkosh;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Cust
         long id = mCursor.getLong(mCursor.getColumnIndex(MyTables.CustomerOrders._ID));
         //show on textview
         holder.nameTextView.setText(name);
-        holder.orderImageView.setImageDrawable(model);
+        holder.orderImageView.setImageDrawable(Drawable.createFromPath(model));
         holder.itemView.setTag(id);
     }
 
@@ -74,7 +75,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Cust
         public CustomerViewHolder (View itemView){
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.orderNameView);
-            orderImageView = (TextView) itemView.findViewById((R.id.orderimageView);
-        }
+            orderImageView = (ImageView) itemView.findViewById(R.id.orderimageView);
+            }
     }
 }

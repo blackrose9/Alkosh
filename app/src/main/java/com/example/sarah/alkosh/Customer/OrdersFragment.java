@@ -27,7 +27,7 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ordersfragment,container,false);
-        addbtn = (ImageButton) view.findViewById(R.id.addbtn);
+        addbtn = (ImageButton) view.findViewById(R.id.orderbtn);
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
